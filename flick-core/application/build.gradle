@@ -1,0 +1,6 @@
+dependencies {
+    implementation project(':flick-core:domain')
+
+    implementation 'org.springframework:spring-context:6.0.9'
+    implementation 'org.springframework:spring-tx:6.0.9'
+}

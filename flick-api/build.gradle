@@ -1,0 +1,13 @@
+dependencies {
+    implementation project(':flick-core:domain')
+    implementation project(':flick-core:application')
+
+    implementation project(':flick-adapter:dauth')
+    implementation project(':flick-adapter:http')
+    implementation project(':flick-adapter:jpa')
+    implementation project(':flick-adapter:security')
+
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    runtimeOnly 'mysql:mysql-connector-java:8.0.33'
+}

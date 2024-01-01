@@ -1,0 +1,27 @@
+server:
+  port: 8000
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: false
+    open-in-view: false
+
+dauth:
+  clientId: ${DAUTH_CLIENT_ID}
+  clientSecret: ${DAUTH_CLIENT_SECRET}
+
+jwt:
+  access-key: ${JWT_ACCESS_KEY}
+  secret-key: ${JWT_SECRET_KEY}
+  access-expire: ${JWT_ACCESS_EXPIRE}
+  refresh-expire: ${JWT_REFRESH_EXPIRE}

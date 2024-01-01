@@ -1,0 +1,13 @@
+rootProject.name = 'flick-backend'
+
+include 'flick-adapter'
+include 'flick-adapter:dauth'
+include 'flick-adapter:http'
+include 'flick-adapter:jpa'
+include 'flick-adapter:security'
+
+include 'flick-api'
+
+include 'flick-core'
+include 'flick-core:domain'
+include 'flick-core:application'
