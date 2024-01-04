@@ -8,44 +8,77 @@ import sigma.domain.common.value.AbstractId;
 
 import java.time.LocalDateTime;
 
-public record Account(
-        AccountId id,
-        AccountNumber number,
-        HolderId holderId,
-        Balance balance,
-        AccountType type,
-        LocalDateTime createdAt,
-        LocalDateTime modifiedAt) {
+public final class Account {
+    private final AccountId id;
+    private AccountNumber number;
+    private HolderId holderId;
+    private Balance balance;
+    private AccountType type;
+    private LocalDateTime createdAt;
+    private LocalDateTime modifiedAt;
+
 
     @Builder
-    public Account {
+    public Account(final AccountId id, final AccountNumber number, final HolderId holderId, final Balance balance,
+                   final AccountType type, final LocalDateTime createdAt, final LocalDateTime modifiedAt) {
+        this.id = id;
+        this.number = number;
+        this.holderId = holderId;
+        this.balance = balance;
+        this.type = type;
+        this.createdAt = createdAt;
+        this.modifiedAt = modifiedAt;
     }
 
     private void isHolder(final AbstractId memberId) {
-        if(!holderId.equals(memberId)) {
+        if (!holderId.equals(memberId)) {
             throw NotAccountHolder.EXCEPTION;
         }
     }
 
     private void canAfford(final Long amount) {
-        if(balance.getValue() < amount) {
+        if (balance.getValue() < amount) {
             throw InsufficientBalance.EXCEPTION;
         }
     }
 
-    public Account send(final Long amount, final AbstractId memberId) {
+    public void send(final Long amount, final AbstractId memberId) {
         isHolder(memberId);
         canAfford(amount);
 
-        final Balance balance = new Balance(this.balance.getValue()-amount);
-
-        return new Account(id, number, holderId, balance, type, createdAt, modifiedAt);
+        this.balance = new Balance(this.balance.getValue() - amount);
     }
 
-    public Account receive(final Long amount) {
-        final Balance balance = new Balance(this.balance.getValue()+amount);
+    public void receive(final Long amount) {
+        this.balance = new Balance(this.balance.getValue() + amount);
+    }
 
-        return new Account(id, number, holderId, balance, type, createdAt, modifiedAt);
+    public AccountId id() {
+        return id;
+    }
+
+    public AccountNumber number() {
+        return number;
+    }
+
+    public HolderId holderId() {
+        return holderId;
+    }
+
+    public Balance balance() {
+        return balance;
+    }
+
+    public AccountType type() {
+        return type;
+    }
+
+    public LocalDateTime createdAt() {
+        return createdAt;
+    }
+
+    public LocalDateTime modifiedAt() {
+        return modifiedAt;
     }
 
 }
