@@ -25,10 +25,13 @@ public class TransferUseCase {
 
         final Member member = memberSessionPort.current();
         final Account sender = accountDBPort.getByNumber(command.sender());
-        accountDBPort.save(sender.send(command.amount(), member.id()));
-
         final Account receiver = accountDBPort.getByNumber(command.receiver());
-        accountDBPort.save(receiver.receive(command.amount()));
+
+        sender.send(command.amount(), member.id());
+        receiver.receive(command.amount());
+
+        accountDBPort.save(sender);
+        accountDBPort.save(receiver);
 
         return sender;
     }
