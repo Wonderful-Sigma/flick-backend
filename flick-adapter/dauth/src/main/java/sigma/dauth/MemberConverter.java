@@ -22,9 +22,9 @@ abstract class MemberConverter {
             return UUID.randomUUID().toString();
         }
 
-        final String number = "" + (user.getNumber()>9 ? "" : " ") + user.getNumber();
+        final String number = "" + (user.getNumber()>9 ? "" : "0") + user.getNumber();
 
-        return "" + user.getGrade() + "0" + user.getRoom() + number;
+        return "" + user.getGrade() + user.getRoom() + number;
     }
 
 }

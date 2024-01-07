@@ -17,7 +17,7 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  build-docker-image:
     runs-on: ubuntu-latest
 
     steps:
@@ -37,3 +37,33 @@ jobs:
       uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
       with:
         arguments: build
+    - name: docker image build
+      run: docker build --platform linux/arm64/v8 -t ${{ secrets.DOCKERHUB_USERNAME }}/flick .
+
+    - name: docker login
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+    - name: docker image build
+      run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/flick
+
+  run-docker-image-on-rpi:
+        needs: build-docker-image
+        runs-on: ubuntu-latest
+        steps:
+          - name: Deploy MainServer(master)
+            uses: appleboy/ssh-action@master
+            with:
+              host: ${{ secrets.SERVER_HOST }}
+              username: ${{ secrets.SERVER_USERNAME }}
+              password: ${{ secrets.SERVER_PASSWORD }}
+              port: ${{ secrets.SERVER_PORT }}
+              script: |
+                sudo su
+                rm -rf api.log
+                sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/flick
+                sudo docker stop $(sudo docker ps -q) 2>/dev/null || true
+                nohup sudo docker run -p 8080:8000 ${{ secrets.DOCKERHUB_USERNAME }}/flick >> api.log &
+                sudo docker system prune -f
