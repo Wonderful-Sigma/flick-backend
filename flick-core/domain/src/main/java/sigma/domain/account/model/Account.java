@@ -9,14 +9,14 @@ import sigma.domain.common.value.AbstractId;
 import java.time.LocalDateTime;
 
 public final class Account {
+
     private final AccountId id;
-    private AccountNumber number;
-    private HolderId holderId;
+    private final AccountNumber number;
+    private final AccountType type;
+    private final HolderId holderId;
     private Balance balance;
-    private AccountType type;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
-
 
     @Builder
     public Account(final AccountId id, final AccountNumber number, final HolderId holderId, final Balance balance,
