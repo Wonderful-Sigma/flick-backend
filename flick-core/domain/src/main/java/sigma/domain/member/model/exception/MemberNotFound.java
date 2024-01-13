@@ -1,9 +1,7 @@
 package sigma.domain.member.model.exception;
 
-import lombok.Getter;
 import sigma.domain.common.exception.FlickException;
 
-@Getter
 public final class MemberNotFound extends FlickException {
 
     public static final FlickException EXCEPTION = new MemberNotFound();
