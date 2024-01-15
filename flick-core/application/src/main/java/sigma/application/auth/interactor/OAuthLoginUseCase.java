@@ -28,7 +28,7 @@ public class OAuthLoginUseCase {
 
         applicationEventPublisher.publishEvent(new MemberRegisteredEvent(member.id()));
 
-        return tokenPort.issueToken(member.id(), member.memberInfo().role());
+        return tokenPort.issueToken(member.id(), member.role());
     }
 
 }
