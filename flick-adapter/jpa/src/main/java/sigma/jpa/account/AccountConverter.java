@@ -26,7 +26,7 @@ abstract class AccountConverter {
         try {
             return AccountJPAEntity.builder()
                     .id(domain.id().getId())
-                    .number(domain.number().value())
+                    .number(domain.number().number())
                     .holderId(domain.holderId().getId())
                     .balance(domain.balance().getValue())
                     .type(domain.type())
@@ -35,7 +35,7 @@ abstract class AccountConverter {
                     .build();
         } catch (NullPointerException e) {
             return AccountJPAEntity.builder()
-                    .number(domain.number().value())
+                    .number(domain.number().number())
                     .holderId(domain.holderId().getId())
                     .balance(domain.balance().getValue())
                     .type(domain.type())

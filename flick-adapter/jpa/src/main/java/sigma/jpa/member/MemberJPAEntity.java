@@ -25,8 +25,7 @@ public class MemberJPAEntity extends AbstractIdEntity {
     @NotNull
     private String profileImage;
     @NotNull
-    private String smsToken;
-
+    private String fcmToken;
     @NotNull
     private String studentName;
     @NotNull
