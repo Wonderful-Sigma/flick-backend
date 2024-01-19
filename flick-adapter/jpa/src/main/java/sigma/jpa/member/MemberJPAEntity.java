@@ -1,9 +1,6 @@
 package sigma.jpa.member;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -17,7 +14,10 @@ import sigma.jpa.common.entity.AbstractIdEntity;
 @Getter
 @SuperBuilder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class MemberJPAEntity extends AbstractIdEntity {
+public class MemberJPAEntity /* extends AbstractIdEntity*/ {
+
+    @jakarta.persistence.Id
+    private String Id;
 
     @NotNull
     @Enumerated(value = EnumType.STRING)

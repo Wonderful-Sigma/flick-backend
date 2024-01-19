@@ -24,10 +24,11 @@ class AccountTest {
         holderId = new HolderId(1L);
         account = Account.builder()
                 .id(new AccountId(1L))
-                .number(new AccountNumber(2317L))
+                .accountInfo(new AccountInfo(2317L,"최수원의 계좌"))
                 .holderId(holderId)
                 .balance(balance)
                 .type(AccountType.INDIVIDUAL)
+                .profile(new Profile("https://velog.velcdn.com/images/nimo0321/post/c152082f-0d1b-4932-8ba3-fa884df69549/image.svg"))
                 .createdAt(LocalDateTime.now())
                 .modifiedAt(LocalDateTime.now())
                 .build();

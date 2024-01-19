@@ -11,21 +11,23 @@ import java.time.LocalDateTime;
 public final class Account {
 
     private final AccountId id;
-    private final AccountNumber number;
+    private final AccountInfo accountInfo;
     private final AccountType type;
     private final HolderId holderId;
     private Balance balance;
+    private Profile profile;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
     @Builder
-    public Account(final AccountId id, final AccountNumber number, final HolderId holderId, final Balance balance,
-                   final AccountType type, final LocalDateTime createdAt, final LocalDateTime modifiedAt) {
+    public Account(final AccountId id, final AccountInfo accountInfo, final HolderId holderId, final Balance balance,
+                   final AccountType type, final Profile profile, final LocalDateTime createdAt, final LocalDateTime modifiedAt) {
         this.id = id;
-        this.number = number;
+        this.accountInfo = accountInfo;
         this.holderId = holderId;
         this.balance = balance;
         this.type = type;
+        this.profile = profile;
         this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;
     }
@@ -57,8 +59,8 @@ public final class Account {
         return id;
     }
 
-    public AccountNumber number() {
-        return number;
+    public AccountInfo accountInfo() {
+        return accountInfo;
     }
 
     public HolderId holderId() {
@@ -71,6 +73,10 @@ public final class Account {
 
     public AccountType type() {
         return type;
+    }
+
+    public Profile profile() {
+        return profile;
     }
 
     public LocalDateTime createdAt() {

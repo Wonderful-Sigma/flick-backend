@@ -18,16 +18,18 @@ class JwtAdapter implements TokenPort {
     private final JwtProperties jwtProperties;
 
     @Override
-    public Long parseAccessToken(final String accessToken) {
+    public String parseToken(final String accessToken, final String jwtType) {
         final String key = jwtProperties.getAccessKey();
 
         final Jws<Claims> jwsClaims = Jwts.parser().setSigningKey(key).parseClaimsJws(extract(accessToken));
 
-        if(!(jwsClaims.getHeader().get(Header.JWT_TYPE).equals(JwtType.ACCESS.toString()))) {
+        if(!(jwsClaims.getHeader().get(Header.JWT_TYPE).equals(jwtType))) {
             throw WrongTokenType.EXCEPTION;
         }
 
-        return Long.parseLong(jwsClaims.getBody().getSubject());
+        return jwsClaims.getBody().getSubject();
+
+        //이게 validateToken부분인것 같은데 예외처리 안된것 같음
     }
 
     @Override
@@ -38,6 +40,11 @@ class JwtAdapter implements TokenPort {
         );
     }
 
+    @Override
+    public String newAccessToken(String id, Role role) {
+        return generateToken(id, role, JwtType.ACCESS);
+    }
+
     static String extract(final String token) {
         if (StringUtils.hasText(token) && token.startsWith("Bearer ")) {
             return token.substring(7);
@@ -46,7 +53,7 @@ class JwtAdapter implements TokenPort {
         return token;
     }
 
-    private String generateToken(final Long id, final Role role, final JwtType jwtType) {
+    private String generateToken(final String id, final Role role, final JwtType jwtType) {
         final String key;
         final String expire;
 
@@ -64,12 +71,11 @@ class JwtAdapter implements TokenPort {
 
         return Jwts.builder()
                 .setHeaderParam(Header.JWT_TYPE, jwtType)
-                .setSubject(id.toString())
+                .setSubject(id)
                 .claim("authority", role)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expire))
                 .signWith(SignatureAlgorithm.HS512, key)
                 .compact();
     }
-
 }
