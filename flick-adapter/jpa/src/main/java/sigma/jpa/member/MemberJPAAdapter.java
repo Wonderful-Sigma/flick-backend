@@ -1,7 +1,6 @@
 package sigma.jpa.member;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.TypedQuery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import sigma.application.member.outport.MemberDBPort;

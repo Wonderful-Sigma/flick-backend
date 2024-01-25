@@ -24,7 +24,7 @@ public class AccountJPAEntity extends AbstractIdEntity {
     private String name;
 
     @NotNull
-    private Long holderId;
+    private String holderId;
 
     @NotNull
     private Long balance;

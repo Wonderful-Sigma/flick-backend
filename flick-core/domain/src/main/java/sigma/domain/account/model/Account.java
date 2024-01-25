@@ -5,6 +5,7 @@ import sigma.domain.account.model.exception.InsufficientBalance;
 import sigma.domain.account.model.exception.NotAccountHolder;
 import sigma.domain.account.model.value.*;
 import sigma.domain.common.value.AbstractId;
+import sigma.domain.member.model.value.MemberId;
 
 import java.time.LocalDateTime;
 
@@ -32,7 +33,7 @@ public final class Account {
         this.modifiedAt = modifiedAt;
     }
 
-    private void isHolder(final AbstractId memberId) {
+    private void isHolder(final MemberId memberId) {
         if (!holderId.equals(memberId)) {
             throw NotAccountHolder.EXCEPTION;
         }
@@ -44,7 +45,7 @@ public final class Account {
         }
     }
 
-    public void send(final Long amount, final AbstractId memberId) {
+    public void send(final Long amount, final MemberId memberId) {
         isHolder(memberId);
         canAfford(amount);
 

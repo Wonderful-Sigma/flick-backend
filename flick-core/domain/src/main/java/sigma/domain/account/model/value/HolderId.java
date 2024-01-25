@@ -1,15 +1,16 @@
 package sigma.domain.account.model.value;
 
 import sigma.domain.common.value.AbstractId;
+import sigma.domain.member.model.value.MemberId;
 
-public final class HolderId extends AbstractId {
+public final class HolderId /*extends AbstractId */{
+    private final MemberId Id;
 
-    public HolderId(final Long id) {
-        super(id);
+    public HolderId(final MemberId id) {
+        this.Id = id;
     }
 
-    public HolderId(final AbstractId id) {
-        super(id.getId());
+    public String getId() {
+        return Id.getId();
     }
-
 }

@@ -17,7 +17,7 @@ import sigma.jpa.common.entity.AbstractIdEntity;
 public class GroupMemberJPAEntity extends AbstractIdEntity {
 
     @NotNull
-    private Long memberId;
+    private String memberId;
     @NotNull
     private Long accountId;
 
