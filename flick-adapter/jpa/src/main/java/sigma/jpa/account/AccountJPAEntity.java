@@ -19,12 +19,20 @@ public class AccountJPAEntity extends AbstractIdEntity {
     @NotNull
     @Column(unique = true)
     private Long number;
+
+    @NotNull
+    private String name;
+
     @NotNull
     private Long holderId;
+
     @NotNull
     private Long balance;
+
     @NotNull
     @Enumerated(value = EnumType.STRING)
     private AccountType type;
 
+    @NotNull
+    private String profileImage;
 }

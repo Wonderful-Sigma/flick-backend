@@ -1,10 +1,8 @@
 package sigma.jpa.account;
 
 import sigma.domain.account.model.Account;
-import sigma.domain.account.model.value.AccountId;
+import sigma.domain.account.model.value.*;
 import sigma.domain.account.model.value.AccountNumber;
-import sigma.domain.account.model.value.Balance;
-import sigma.domain.account.model.value.HolderId;
 
 abstract class AccountConverter {
 
@@ -15,10 +13,11 @@ abstract class AccountConverter {
 
         return Account.builder()
                 .id(new AccountId(entity.getId()))
-                .number(new AccountNumber(entity.getNumber()))
+                .accountInfo(new AccountInfo(entity.getNumber(), entity.getName()))
                 .holderId(new HolderId(entity.getHolderId()))
                 .balance(new Balance(entity.getBalance()))
                 .type(entity.getType())
+                .profile(new Profile(entity.getProfileImage()))
                 .build();
     }
 
@@ -26,19 +25,23 @@ abstract class AccountConverter {
         try {
             return AccountJPAEntity.builder()
                     .id(domain.id().getId())
-                    .number(domain.number().number())
+                    .number(domain.accountInfo().number())
+                    .name(domain.accountInfo().name())
                     .holderId(domain.holderId().getId())
                     .balance(domain.balance().getValue())
                     .type(domain.type())
+                    .profileImage(domain.profile().profileUrl())
                     .createdAt(domain.createdAt())
                     .modifiedAt(domain.modifiedAt())
                     .build();
         } catch (NullPointerException e) {
             return AccountJPAEntity.builder()
-                    .number(domain.number().number())
+                    .number(domain.accountInfo().number())
+                    .name(domain.accountInfo().name())
                     .holderId(domain.holderId().getId())
                     .balance(domain.balance().getValue())
                     .type(domain.type())
+                    .profileImage(domain.profile().profileUrl())
                     .build();
         }
     }

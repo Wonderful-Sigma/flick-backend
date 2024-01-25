@@ -20,7 +20,7 @@ class JwtHelper {
 
     public void setAuthentication(final String accessToken) {
         if(accessToken != null) {
-            final Long memberId = tokenPort.parseAccessToken(accessToken);
+            final String memberId = tokenPort.parseToken(accessToken, "ACCESS");
 
             final Member member = memberDBPort.getById(memberId);
 

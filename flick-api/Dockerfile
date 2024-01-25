@@ -1,0 +1,16 @@
+FROM openjdk:17-jdk
+
+COPY build/libs/flick-api-0.0.1-SNAPSHOT.jar api.jar
+
+ENV DAUTH_CLIENT_ID="b3aa33abf02844799af25c1d5d86f89f8697f9b0ef2543c9b1b76e8917f3d992"
+ENV DAUTH_CLIENT_SECRET="f54fbe1d36c84741b6069b064eeaabd5156d4ba48b5a4e2fbb0f2696b512ed69"
+ENV DB_PASSWORD="qwsedc1!234"
+ENV DB_URL="jdbc:mariadb://192.168.45.185:3306/flick?serverTimezone=Asia/Seoul&characterEncoding=UTF-8"
+ENV DB_USERNAME="jbj"
+ENV JWT_ACCESS_KEY="q1w2e3d4c5x6z7a8s9"
+ENV JWT_SECRET_KEY="q1w2e3d4c5x6z7a8s9"
+ENV JWT_ACCESS_EXPIRE="86400000"
+ENV JWT_REFRESH_EXPIRE="2592000000"
+
+
+ENTRYPOINT ["java", "-jar", "api.jar", "-x", "test"]
