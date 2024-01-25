@@ -2,7 +2,7 @@ package sigma.jpa.account;
 
 import sigma.domain.account.model.Account;
 import sigma.domain.account.model.value.*;
-import sigma.domain.account.model.value.AccountNumber;
+import sigma.domain.member.model.value.MemberId;
 
 abstract class AccountConverter {
 
@@ -14,7 +14,7 @@ abstract class AccountConverter {
         return Account.builder()
                 .id(new AccountId(entity.getId()))
                 .accountInfo(new AccountInfo(entity.getNumber(), entity.getName()))
-                .holderId(new HolderId(entity.getHolderId()))
+                .holderId(new HolderId(new MemberId(entity.getHolderId())))
                 .balance(new Balance(entity.getBalance()))
                 .type(entity.getType())
                 .profile(new Profile(entity.getProfileImage()))

@@ -36,6 +36,6 @@ public class MemberController {
 
     @PostMapping("/setFirebase/{memberId}")
     public void setFirebaseToken(@PathVariable(value = "memberId") String memberId, @RequestBody SetFirebaseTokenRequest setFirebaseTokenRequest){
-        return;newTokenUseCase.setNewFirebaseToken(memberId,setFirebaseTokenRequest.firebaseToken());
+        newTokenUseCase.setNewFirebaseToken(memberId,setFirebaseTokenRequest.firebaseToken());
     }
 }
